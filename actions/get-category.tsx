@@ -8,19 +8,18 @@ interface Query {
 }
 
 const getCategory = async (query: Query): Promise<Categories> => {
-  const company_id = 'BIP';
-  let url = `${BASE_URL}/${company_id}/cms/categories`;
+  let url = `${BASE_URL}/categories`;
 
   if (query.slug) {
     url = `${url}/${query.slug}`;
   } else {
     url = qs.stringifyUrl({
       url,
-      query: {
-        company_id,
-      },
+      query: {},
     });
   }
+
+  console.log('Fetching category with URL:', url);
 
   try {
     const res = await fetch(url);

@@ -4,11 +4,10 @@ import qs from 'query-string';
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const getCategories = async (): Promise<Categories[]> => {
-  const company_id = 'BIP';
   const query = {};
 
   const url = qs.stringifyUrl({
-    url: `${BASE_URL}/${company_id}/cms/categories`,
+    url: `${BASE_URL}/categories`,
     query,
   });
 

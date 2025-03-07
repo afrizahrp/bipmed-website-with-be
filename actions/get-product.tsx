@@ -9,8 +9,7 @@ interface Query {
 }
 
 const getProduct = async (query: Query): Promise<Products> => {
-  const company_id = 'BIP';
-  let url = `${BASE_URL}/${company_id}/cms/products`;
+  let url = `${BASE_URL}/products`;
 
   if (query.slug?.trim()) {
     url = `${url}/${query.slug.trim()}`;

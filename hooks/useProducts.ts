@@ -4,19 +4,17 @@ import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 
 interface UseProductsProps {
-  company_id: string;
   search: string;
 }
 
-export const useProducts = ({ company_id, search }: UseProductsProps) => {
+export const useProducts = ({ search }: UseProductsProps) => {
   const [debouncedSearch] = useDebounce(search, 1000); // 500ms debounce
 
   const { data, isLoading, error, ...rest } = useQuery<Products[], Error>({
-    queryKey: ['products', company_id, debouncedSearch],
+    queryKey: ['products', debouncedSearch],
     queryFn: async () => {
       try {
         return await getProductsByName({
-          company_id,
           search: debouncedSearch,
         });
       } catch (err) {

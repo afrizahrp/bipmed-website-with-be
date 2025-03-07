@@ -11,7 +11,6 @@ import { useMediaQuery } from 'react-responsive';
 
 const ProductListPage = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 640px)' });
-  const company_id = 'BIP'; // Assuming company_id is 'BIP'
   const searchParams = useSearchParams();
   const name = searchParams.get('name') || '';
 
@@ -20,7 +19,6 @@ const ProductListPage = () => {
     isLoading,
     error,
   } = useProducts({
-    company_id,
     search: name,
   });
 

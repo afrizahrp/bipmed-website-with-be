@@ -4,16 +4,14 @@ import { Products } from '@/types';
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface GetProductsProps {
-  company_id: string;
   category_id: string;
 }
 
 const getProducts = async ({
-  company_id,
   category_id,
 }: GetProductsProps): Promise<Products[]> => {
   try {
-    const URL = `${BASE_URL}/${company_id}/cms/products`;
+    const URL = `${BASE_URL}/products`;
 
     const response = await axios.get(URL, {
       params: {

@@ -3,9 +3,8 @@ import getProducts from '@/actions/get-products';
 import NoResults from '@/components/ui/no-results';
 
 const TkdnProductPage = async () => {
-  const company_id = 'BIP'; // Initialize with appropriate value
   const category_id = '1076'; // Initialize with appropriate value
-  const products = await getProducts({ company_id, category_id, search: '' });
+  const products = await getProducts({ category_id });
 
   const tkdnProducts = products.filter(
     (item) => item.tkdn_pctg > 0 && item.tkdn_pctg <= 100
