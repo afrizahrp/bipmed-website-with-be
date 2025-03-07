@@ -5,23 +5,17 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface getProductsByNameProps {
   company_id: string;
-  name: string;
   search: string;
 }
 
 const getProductsByName = async ({
   company_id,
-  name,
   search,
 }: getProductsByNameProps): Promise<Products[]> => {
   try {
-    const URL = `${BASE_URL}/products/${company_id}/name/${name}`;
+    const URL = `${BASE_URL}/${company_id}/cms/products/search/${search}`;
 
-    const response = await axios.get(URL, {
-      params: {
-        name: search,
-      },
-    });
+    const response = await axios.get(URL);
 
     return response.data;
   } catch (error) {

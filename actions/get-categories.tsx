@@ -1,16 +1,14 @@
 import { Categories } from '@/types';
 import qs from 'query-string';
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const getCategories = async (): Promise<Categories[]> => {
-  const query = {
-    company_id: 'BIP',
-    iShowedStatus: 'SHOW',
-  };
+  const company_id = 'BIP';
+  const query = {};
 
   const url = qs.stringifyUrl({
-    url: URL,
+    url: `${BASE_URL}/${company_id}/cms/categories`,
     query,
   });
 
@@ -33,7 +31,7 @@ const getCategories = async (): Promise<Categories[]> => {
   }
 
   const data = await res.json();
-  return data.data; // Assuming the API returns the result in this format
+  return data.data;
 };
 
 export default getCategories;

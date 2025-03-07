@@ -1,7 +1,7 @@
 import { Products } from '@/types';
 import qs from 'query-string';
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/products/BIP/slug/`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 interface Query {
   slug?: string;
@@ -9,13 +9,14 @@ interface Query {
 }
 
 const getProduct = async (query: Query): Promise<Products> => {
-  let url = URL;
+  const company_id = 'BIP';
+  let url = `${BASE_URL}/${company_id}/cms/products`;
 
   if (query.slug?.trim()) {
-    url = `${URL}${query.slug.trim()}`;
+    url = `${url}/${query.slug.trim()}`;
   } else {
     url = qs.stringifyUrl({
-      url: URL,
+      url,
       query: {
         descriptions: query.descriptions,
       },
@@ -26,8 +27,8 @@ const getProduct = async (query: Query): Promise<Products> => {
     const res = await fetch(url);
 
     if (!res.ok) {
-      console.error(`Error fetching products: ${res.statusText}`);
-      throw new Error(`Error fetching products: ${res.statusText}`);
+      console.error(`Error fetching product: ${res.statusText}`);
+      throw new Error(`Error fetching product: ${res.statusText}`);
     }
 
     const contentType = res.headers.get('content-type');

@@ -21,7 +21,6 @@ const ProductListPage = () => {
     error,
   } = useProducts({
     company_id,
-    name,
     search: name,
   });
 
@@ -102,7 +101,7 @@ const ProductListPage = () => {
           </div>
           <div className='mt-10 flex justify-center'>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12'>
-              {products &&
+              {Array.isArray(products) &&
                 products.map((item) => (
                   <div key={item.slug}>
                     <ProductCard key={item.slug} data={item} />

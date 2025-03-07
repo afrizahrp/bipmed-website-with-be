@@ -21,7 +21,6 @@ const SearchBar = () => {
 
   return (
     <form
-      // className='flex items-center justify-between gap-2 p-2 flex-1'
       className='flex items-center justify-between gap-2 p-2 w-full'
       onSubmit={(e) => e.preventDefault()}
     >

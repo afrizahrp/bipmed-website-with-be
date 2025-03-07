@@ -1,29 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
-import getProductCategory from '@/actions/get-product-category';
 import { Products } from '@/types';
+import getProducts from '@/actions/get-products';
 
 interface useProductCategoryProps {
+  company_id: string;
   category_id: string;
 }
 
 export const useProductCategory = ({
+  company_id,
   category_id,
 }: useProductCategoryProps) => {
   const { data, isLoading, error, ...rest } = useQuery<Products[], Error>({
-    queryKey: ['products', category_id],
+    queryKey: ['products', company_id, category_id],
     queryFn: async () => {
       try {
-        const products = await getProductCategory({
-          categoryId: category_id,
+        const products = await getProducts({
+          company_id,
+          category_id,
         });
-        return products; // Ensure this returns an array of Products
+        return products;
       } catch (err) {
         throw new Error('Failed to fetch products');
       }
     },
     retry: 3,
-    staleTime: 60 * 60 * 1000, // 1 hour
-    enabled: category_id !== '', // Only run the query if category_id is not empty
+    staleTime: 60 * 60 * 1000,
+    enabled: category_id !== '',
   });
 
   return { data, isLoading, error, ...rest };

@@ -1,5 +1,4 @@
 'use client';
-// import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import usePreviewModal from '@/hooks/use-preview-modal';
 import Modal from '@/components/ui/modal';
@@ -14,7 +13,6 @@ import {
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import MainButton from '@/components/ui/MainButton';
-
 import Loading from '@/components/ui/loading';
 
 const PreviewModal = () => {
@@ -23,6 +21,7 @@ const PreviewModal = () => {
   console.log(data?.id ?? '');
 
   const { data: products, isLoading } = useProductCategory({
+    company_id: 'BIP',
     category_id: data?.id ?? '',
   });
   const router = useRouter();
@@ -104,8 +103,6 @@ const PreviewModal = () => {
                     className='relative rounded-lg overflow-hidden flex flex-col'
                   >
                     <Card
-                      // className='cursor-pointer'
-                      // style={{ width: '220', height: '350px' }}
                       className='cursor-pointer flex flex-col h-full '
                       onClick={() => handleClick(product.slug)}
                     >
@@ -130,9 +127,6 @@ const PreviewModal = () => {
                           <div className='aspect-square object-cover rounded-md bg-gray-200 w-full h-full' />
                         )}
                       </CardContent>
-                      {/* <CardFooter className='text-customBlue justify-center items-center text-center text-sm bg-gray-200 py-2'>
-                        <p>{product.name}</p>
-                      </CardFooter> */}
 
                       <div className=' bg-gray-200 text-customBlue justify-center items-centerr text-center md:text-md sm:text-md sm:h-16 md:h-24'>
                         <CardFooter className='mt-4 items-center text-center justify-center'>
@@ -155,7 +149,6 @@ const PreviewModal = () => {
           </p>
         )}
       </div>
-      {/* </div> */}
     </Modal>
   );
 };
