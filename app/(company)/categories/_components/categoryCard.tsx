@@ -28,7 +28,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ data }) => {
   const handleClick = () => {
     setLoading(true);
     try {
-      router.push(`/categories/${data?.slug.trim()}`);
+      console.log('Navigating to:', `/categories/${data?.slug}`);
+      router.push(`/categories/${data?.slug}`);
     } catch (error) {
       console.error('Navigation error:', error);
       setLoading(false); // Reset loading state if navigation fails

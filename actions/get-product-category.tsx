@@ -1,24 +1,20 @@
 import axios from 'axios';
 import { Products } from '@/types';
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/products`;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface GetProductsProps {
-  iShowedStatus: boolean;
   categoryId: string;
 }
 
+const companyId = 'BIP';
 const getProducts = async ({
-  iShowedStatus,
   categoryId,
 }: GetProductsProps): Promise<Products[]> => {
+  const URL = `${BASE_URL}/products/${companyId}/${categoryId}`;
   try {
-    const response = await axios.get(URL, {
-      params: {
-        iShowedStatus,
-        category_id: categoryId,
-      },
-    });
+    const response = await axios.get(URL);
+    console.log('response', response.data);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

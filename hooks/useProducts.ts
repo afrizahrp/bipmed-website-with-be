@@ -3,7 +3,17 @@ import { Products } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 
-export const useProducts = (search: string) => {
+interface UseProductsProps {
+  company_id: string;
+  category_id: string;
+  search: string;
+}
+
+export const useProducts = ({
+  company_id,
+  category_id,
+  search,
+}: UseProductsProps) => {
   const [debouncedSearch] = useDebounce(search, 1000); // 500ms debounce
 
   const { data, isLoading, error, ...rest } = useQuery<Products[], Error>({
@@ -11,7 +21,8 @@ export const useProducts = (search: string) => {
     queryFn: async () => {
       try {
         return await getProducts({
-          iShowedStatus: true,
+          company_id,
+          category_id,
           search: debouncedSearch,
         });
       } catch (err) {
@@ -20,7 +31,7 @@ export const useProducts = (search: string) => {
     },
     retry: 3,
     staleTime: 60 * 60 * 1000, // 60s
-    enabled: debouncedSearch.trim() !== '', // Only run the query if debouncedSearch is not empty
+    enabled: debouncedSearch !== '', // Only run the query if debouncedSearch is not empty
   });
 
   return { data, isLoading, error, ...rest };

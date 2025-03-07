@@ -58,8 +58,10 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
 
   const categoryName = category ? category.name : 'Default Category Name';
   const id = category ? category.id.trim() : 'default';
+  const category_id = category ? category.id.trim() : 'default';
+
   const company_id = 'BIP';
-  const products = await getProducts({ company_id, search: '' });
+  const products = await getProducts({ company_id, category_id, search: '' });
   const productCategory = products.filter(
     (item) => item.category_id.trim() === id
   );
@@ -94,7 +96,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
       <>
         <div>
           <span className='desktop-caption'>
-            Tidak ada produk pada kategori <strong>{categoryName}</strong>
+            Tidak ada produk pada kategorix <strong>{categoryName}</strong>
           </span>
           <span className='mobile-caption'>
             Ada {productCategory.length} produk pada kategori{' '}

@@ -3,7 +3,9 @@ import getProducts from '@/actions/get-products';
 import NoResults from '@/components/ui/no-results';
 
 const EcatalogProductPage = async () => {
-  const products = await getProducts({ iShowedStatus: true, search: '' });
+  const company_id = 'BIP'; // Initialize with appropriate value
+  const category_id = '1076'; // Initialize with appropriate value
+  const products = await getProducts({ company_id, category_id, search: '' });
 
   // const eCatalogProducts = products.filter((item) => item.ecatalog_URL !== '');
   const eCatalogProducts = products.filter(

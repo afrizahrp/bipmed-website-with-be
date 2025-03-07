@@ -19,7 +19,12 @@ import Loading from '@/components/ui/loading';
 
 const PreviewModal = () => {
   const { isOpen, data, onClose } = usePreviewModal();
-  const { data: products, isLoading } = useProductCategory(data?.id ?? '');
+
+  console.log(data?.id ?? '');
+
+  const { data: products, isLoading } = useProductCategory({
+    category_id: data?.id ?? '',
+  });
   const router = useRouter();
 
   if (isLoading) {

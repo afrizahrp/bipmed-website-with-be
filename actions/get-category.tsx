@@ -1,23 +1,28 @@
 import { Categories } from '@/types';
 import qs from 'query-string';
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/categories/`;
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface Query {
   slug?: string;
 }
 
 const getCategory = async (query: Query): Promise<Categories> => {
-  let url = URL;
+  const company_id = 'BIP';
+  let url = `${BASE_URL}/categories`;
 
   if (query.slug) {
-    url = `${URL}${query.slug}`;
+    url = `${url}/${company_id}/slug/${query.slug}`;
   } else {
     url = qs.stringifyUrl({
-      url: URL,
-      query: {},
+      url,
+      query: {
+        company_id,
+      },
     });
   }
+
+  console.log('Fetching category with URL:', url);
 
   try {
     const res = await fetch(url);
@@ -35,7 +40,7 @@ const getCategory = async (query: Query): Promise<Categories> => {
 
     return await res.json();
   } catch (error) {
-    console.error('Failed to fetch product:', error);
+    console.error('Failed to fetch category:', error);
     throw error;
   }
 };
