@@ -1,28 +1,24 @@
-import getProducts from '@/actions/get-products';
+import getProductsByName from '@/actions/get-products-by-name';
 import { Products } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 
 interface UseProductsProps {
   company_id: string;
-  category_id: string;
+  name: string;
   search: string;
 }
 
-export const useProducts = ({
-  company_id,
-  category_id,
-  search,
-}: UseProductsProps) => {
+export const useProducts = ({ company_id, name, search }: UseProductsProps) => {
   const [debouncedSearch] = useDebounce(search, 1000); // 500ms debounce
 
   const { data, isLoading, error, ...rest } = useQuery<Products[], Error>({
-    queryKey: ['products', debouncedSearch],
+    queryKey: ['products', company_id, name, debouncedSearch],
     queryFn: async () => {
       try {
-        return await getProducts({
+        return await getProductsByName({
           company_id,
-          category_id,
+          name,
           search: debouncedSearch,
         });
       } catch (err) {
