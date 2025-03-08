@@ -56,8 +56,8 @@ const ProductListPage = () => {
       </>
     ) : (
       <>
-        Ditemukan {productsFound} produk dengan kata pencarian{' '}
-        {name && <strong>{name}</strong>}
+        {productsFound} produk dengan kata pencarian{' '}
+        {name && <strong>{name}</strong>} berhasil ditampilkan
       </>
     )
   ) : isMobile ? (

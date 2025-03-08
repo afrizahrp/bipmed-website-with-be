@@ -8,7 +8,7 @@ interface UseProductsProps {
 }
 
 export const useProducts = ({ search }: UseProductsProps) => {
-  const [debouncedSearch] = useDebounce(search, 1000); // 500ms debounce
+  const [debouncedSearch] = useDebounce(search, 1000); // 1000ms debounce
 
   const { data, isLoading, error, ...rest } = useQuery<Products[], Error>({
     queryKey: ['products', debouncedSearch],
@@ -18,12 +18,12 @@ export const useProducts = ({ search }: UseProductsProps) => {
           search: debouncedSearch,
         });
       } catch (err) {
-        throw new Error('Failed to fetch products');
+        throw err;
       }
     },
     retry: 3,
-    staleTime: 60 * 60 * 1000, // 60s
-    enabled: debouncedSearch !== '', // Only run the query if debouncedSearch is not empty
+    staleTime: 60 * 60 * 1000, // 1 Jam
+    enabled: debouncedSearch !== '',
   });
 
   return { data, isLoading, error, ...rest };
