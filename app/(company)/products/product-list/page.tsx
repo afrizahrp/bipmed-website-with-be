@@ -101,7 +101,7 @@ const ProductListPage = () => {
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12'>
               {Array.isArray(products) &&
                 products.map((item) => (
-                  <div key={item.slug}>
+                  <div key={item.id}>
                     <ProductCard key={item.slug} data={item} />
                   </div>
                 ))}
