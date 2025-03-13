@@ -5,7 +5,7 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 interface Query {
   slug?: string;
-  descriptions?: string;
+  // descriptions?: string;
 }
 
 const getProduct = async (query: Query): Promise<Products> => {
@@ -16,14 +16,16 @@ const getProduct = async (query: Query): Promise<Products> => {
   } else {
     url = qs.stringifyUrl({
       url,
-      query: {
-        descriptions: query.descriptions,
-      },
+      // query: {
+      //   descriptions: query.descriptions,
+      // },
     });
   }
+  console.log('Fetching product with URL:', url);
 
   try {
     const res = await fetch(url);
+    console.log('response', res);
 
     if (!res.ok) {
       console.error(`Error fetching product: ${res.statusText}`);
@@ -36,7 +38,8 @@ const getProduct = async (query: Query): Promise<Products> => {
       throw new Error('Response is not JSON');
     }
 
-    return await res.json();
+    const data = await res.json();
+    return data[0]; // Assuming the API returns an array with one product
   } catch (error) {
     console.error('Failed to fetch product:', error);
     throw error;

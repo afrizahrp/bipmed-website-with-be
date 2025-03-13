@@ -8,16 +8,16 @@ interface InfoProps {
   product: Products; // Assuming data is of type Products
 }
 
-const Info: React.FC<InfoProps> = async ({ product }) => {
+const Info: React.FC<InfoProps> = ({ product }) => {
   if (!product) {
     return <div>Product doesn&apos;t exist...</div>;
   }
-  const productdescs =
-    product.descriptions.map((desc) => desc.descriptions) || '';
 
-  const nonPrimaryImages = product.images.filter(
-    (image) => image.isPrimary === false
-  );
+  const productdescs = product.descriptions?.descriptions || '';
+
+  const nonPrimaryImages = Array.isArray(product.images)
+    ? product.images.filter((image) => image.isPrimary === false)
+    : [];
   const nonPrimaryImage =
     nonPrimaryImages.length > 0 ? nonPrimaryImages[0] : null;
 
@@ -29,7 +29,7 @@ const Info: React.FC<InfoProps> = async ({ product }) => {
           name='description'
           content={
             productdescs
-              ? productdescs.join(' ')
+              ? productdescs
               : `Find out more about ${product.name.trim()} in our catalog.`
           }
         />
@@ -80,30 +80,14 @@ const Info: React.FC<InfoProps> = async ({ product }) => {
           <h2 className='text-lg font-semibold mb-5 underline mt-10'>
             Deskripsi dan Fitur
           </h2>
-
-          {product.descriptions.map((desc) => (
-            <div key={desc.id}>
-              <div
-                className={'text-sm'}
-                dangerouslySetInnerHTML={{ __html: desc.descriptions }}
-
-                // dangerouslySetInnerHTML={{ __html: desc.descriptions }}
-              />
-              <div style={{ margin: '16px 0' }} />{' '}
-              {/* <div style={{ margin: '20px 0' }} />{' '}
-              <h2 className='text-lg font-semibold mb-5 underline'>
-                Keunggulan
-              </h2>
-              <div
-                className={'text-sm'}
-                dangerouslySetInnerHTML={{ __html: desc.benefit }}
-                // dangerouslySetInnerHTML={{ __html: desc.benefit }}
-              /> */}
-            </div>
-          ))}
+          <div
+            className={'text-sm'}
+            dangerouslySetInnerHTML={{
+              __html: product.descriptions.descriptions,
+            }}
+          />
         </div>
       )}
-      {/* </div> */}
     </>
   );
 };

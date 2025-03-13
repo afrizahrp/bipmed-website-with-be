@@ -17,60 +17,19 @@ interface ProductPageProps {
   };
 }
 
-// export default async function ProductPage({ params }: ProductPageProps) {
-
-export async function generateMetadata({
-  params,
-}: ProductPageProps): Promise<Metadata | undefined> {
-  const product: Products = await getProduct({
-    slug: params.slug.trim(),
-    descriptions: '',
-  });
-  if (!product) {
-    return;
-  }
-
-  return {
-    title: product.slug,
-    description: product.descriptions.map((d) => d.descriptions).join(' '),
-    openGraph: {
-      title: product.slug,
-      description: product.descriptions.map((d) => d.descriptions).join(' '),
-      type: 'website',
-      locale: 'id_ID',
-      // url: `https://bipmed.vercel.app/${params.slug}`,
-      siteName: 'bipmed',
-      images: [
-        {
-          url: product.images[0].imageURL,
-        },
-        // {
-        //   url: urlForImage(post?.body?.find((b: any) => b._type === "image")).width(1200).height(630).url(),
-        //   width: 1200,
-        //   height: 630,
-        // },
-      ],
-    },
-  };
-}
-
-// const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
-
 export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProduct({
     slug: params.slug.trim(),
-    descriptions: '',
   });
 
   if (!product) {
     return <div>Product not found</div>;
   }
 
-  const categoryId = product.category_id;
   const categories = await getCategories();
 
   const categorySlug = categories.find(
-    (category) => category.id === categoryId
+    (category) => category.id === product.category_id.trim()
   )?.slug;
   const category = await getCategory({ slug: categorySlug });
 
@@ -89,24 +48,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
       },
       {
         name: `${categoryName[0].toUpperCase() + categoryName.slice(1)}`,
-        // href: routes.cms.categoryId(categoryId),
         ...(categorySlug && { href: routes.cms.categorySlug(categorySlug) }),
       },
     ],
   };
 
   return (
-    // <>
-    //   <Head>
-    //     <title>{product.name || 'Nama Produk'}</title>
-    //     <meta
-    //       name='Deskripsi produk'
-    //       content={product.descriptions[0]?.descriptions || 'Deskripsi produk'}
-    //     />
-    //     <meta name='keywords' content={categoryName || 'Kategori produk'} />
-    //     <meta name='afriza' content='bipmed' />
-    //     {/* Optionally add other meta tags like og:title, og:description, og:image, etc. */}
-    //   </Head>
     <div className='bg-white'>
       <Container>
         <div className='px-4 py-10 sm:px-6 lg:px-8 xl:px-10'>
@@ -125,8 +72,5 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </div>
       </Container>
     </div>
-    // </>
   );
 }
-
-// export default ProductPage;
