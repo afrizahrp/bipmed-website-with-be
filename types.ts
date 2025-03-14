@@ -29,6 +29,7 @@ export interface Products {
   category_id: string;
   category: Categories;
   images: ProductImages[];
+  updatedAt: Date;
   descriptions: ProductDesc; // Update this line to reflect the correct type
   primaryImageURL: string;
 }

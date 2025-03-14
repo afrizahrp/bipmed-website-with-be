@@ -101,7 +101,7 @@ const PreviewModal = () => {
                   >
                     <Card
                       className='cursor-pointer flex flex-col h-full '
-                      onClick={() => handleClick(product.slug)}
+                      onClick={() => product.slug && handleClick(product.slug)}
                     >
                       <CardHeader className='text-center items-center justify-center text-customBlue bg-gray-200 text-sm h-2'>
                         {product.catalog_id}
@@ -131,7 +131,7 @@ const PreviewModal = () => {
                         </CardFooter>
                       </div>
                     </Card>
-                    {motionDiv(product.slug, onClose)}
+                    {product.slug && motionDiv(product.slug, onClose)}
                   </motion.div>
                 </div>
               );

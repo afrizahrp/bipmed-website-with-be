@@ -13,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     }).then((res) => res.json());
 
-    return data.result; // Assuming the API returns the result in this format
+    return data.result;
   }
 
   async function getCategories(): Promise<Categories[]> {
@@ -26,24 +26,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
     }).then((res) => res.json());
 
-    return data.result; // Assuming the API returns the result in this format
+    return data.result;
   }
 
   const products: Products[] = await getProducts();
   const categories: Categories[] = await getCategories();
 
-  const filteredProducts = products.filter((product) => product.iShowedStatus);
-
-  const productList = filteredProducts.map((product) => ({
+  const productList = products.map((product) => ({
     url: `${publicUrl}/products/${product.slug}`,
     lastModified: new Date(product.updatedAt),
   }));
 
-  const filteredCategories = products.filter(
-    (product) => product.iShowedStatus
-  );
-
-  const categoryList = filteredCategories.map((category) => ({
+  const categoryList = categories.map((category) => ({
     url: `${publicUrl}/categories/${category.slug}`,
     lastModified: new Date(category.updatedAt), // Assuming categories have an updatedAt field
   }));

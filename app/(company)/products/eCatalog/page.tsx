@@ -7,7 +7,7 @@ const EcatalogProductPage = async () => {
   const products = await getProducts({ category_id });
 
   const eCatalogProducts = products.filter(
-    (item) => item.ecatalog_URL && item.ecatalog_URL.trim() !== ''
+    (item) => item.eCatalogURL && item.eCatalogURL.trim() !== ''
   );
 
   return (
