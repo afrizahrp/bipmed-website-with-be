@@ -1,6 +1,5 @@
 import { Products } from '@/types';
 import Link from 'next/link';
-// import Head from 'next/head';
 import SpectoDownload from './specdownload';
 import './style.css';
 
@@ -13,32 +12,14 @@ const Info: React.FC<InfoProps> = ({ product }) => {
     return <div>Product doesn&apos;t exist...</div>;
   }
 
-  const productdescs = product.descriptions?.descriptions || '';
-
-  const nonPrimaryImages = Array.isArray(product.images)
-    ? product.images.filter((image) => image.isPrimary === false)
-    : [];
+  const nonPrimaryImages = product.images.filter(
+    (image) => image.isPrimary === false
+  );
   const nonPrimaryImage =
     nonPrimaryImages.length > 0 ? nonPrimaryImages[0] : null;
 
   return (
     <>
-      {/* <Head>
-        <title>{product.name.trim()} - bipmed</title>
-        <meta
-          name='description'
-          content={
-            productdescs
-              ? productdescs
-              : `Find out more about ${product.name.trim()} in our catalog.`
-          }
-        />
-        <meta name='keywords' content='product, catalog, e-Catalogue, lkpp' />
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/favicon.ico' />
-      </Head> */}
-
-      {/* <div className='bg-background'> */}
       <div className='text-1xl text-gray-900 text-left justify-center'>
         Katalog : {product.catalog_id}
         <h1 className='text-2xl text-left font-semibold text-gray-600 mb-3'>
@@ -54,10 +35,10 @@ const Info: React.FC<InfoProps> = ({ product }) => {
       </div>
 
       <div className='mt-5'>
-        {product.ecatalog_URL ? (
+        {product.eCatalogURL ? (
           <>
             <Link
-              href={product.ecatalog_URL}
+              href={product.eCatalogURL}
               className='text-customBlue font-semibold desktop-caption'
               target='_blank'
               rel='noopener noreferrer'
@@ -65,7 +46,7 @@ const Info: React.FC<InfoProps> = ({ product }) => {
               Lihat produk ini di e-Catalogue.lkpp
             </Link>
             <Link
-              href={product.ecatalog_URL}
+              href={product.eCatalogURL}
               className='text-customBlue font-semibold mobile-caption'
               target='_blank'
               rel='noopener noreferrer'
@@ -84,6 +65,15 @@ const Info: React.FC<InfoProps> = ({ product }) => {
             className={'text-sm'}
             dangerouslySetInnerHTML={{
               __html: product.descriptions.descriptions,
+            }}
+          />
+          <h2 className='text-lg font-semibold mb-5 underline mt-10'>
+            Manfaat
+          </h2>
+          <div
+            className={'text-sm'}
+            dangerouslySetInnerHTML={{
+              __html: product.descriptions.benefits,
             }}
           />
         </div>

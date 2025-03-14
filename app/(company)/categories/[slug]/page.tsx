@@ -61,7 +61,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   const category_id = category ? category.id.trim() : 'default';
 
   const company_id = 'BIP';
-  const products = await getProducts({ company_id, category_id, search: '' });
+  const products = await getProducts({ category_id });
   const productCategory = products.filter(
     (item) => item.category_id.trim() === id
   );
