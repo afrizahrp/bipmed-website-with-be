@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Products } from '@/types';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -13,15 +12,24 @@ const getProductsByName = async ({
   try {
     const URL = `${BASE_URL}/products/search/${search}`;
 
-    const response = await axios.get(URL);
+    const response = await fetch(URL);
 
-    return response.data;
+    if (!response.ok) {
+      throw new Error(`Error fetching products: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (data.length === 0) {
+      throw new Error(`Produk dengan nama "${search}" tidak ditemukan`);
+    }
+
+    return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error('Axios error:', error.response?.data || error.message);
-      throw new Error(error.response?.data?.message || error.message);
+    console.error('Fetch error:', error);
+    if (error instanceof Error) {
+      throw new Error(error.message || 'An unexpected error occurred');
     } else {
-      console.error('Unexpected error:', error);
       throw new Error('An unexpected error occurred');
     }
   }

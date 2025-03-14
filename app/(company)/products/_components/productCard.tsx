@@ -26,7 +26,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const handleClick = () => {
     setLoading(true);
     try {
-      router.push(`/products/${data?.slug.trim()}`);
+      if (data?.slug) {
+        router.push(`/products/${data.slug.trim()}`);
+      } else {
+        console.error('Product slug is undefined');
+        setLoading(false);
+      }
     } catch (error) {
       console.error('Navigation error:', error);
       setLoading(false); // Reset loading state if navigation fails

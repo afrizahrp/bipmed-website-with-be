@@ -17,7 +17,6 @@ const getProduct = async (query: Query): Promise<Products> => {
       url,
     });
   }
-  console.log('Fetching product with URL:', url);
 
   try {
     const res = await fetch(url);

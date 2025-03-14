@@ -64,17 +64,14 @@ export default function RootLayout({
 
         <title>Alkes Terlengkap-bipmed</title>
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
         <NextProgress />
         <QueryClientProvider>
           <NavMenu />
           <ModalProvider />
-          {children}
-
+          <main className='flex-grow'>{children}</main>
           <Footer />
         </QueryClientProvider>
-        {/* <SpeedInsights /> */}
-        {/* <Analytics /> */}
       </body>
     </html>
   );

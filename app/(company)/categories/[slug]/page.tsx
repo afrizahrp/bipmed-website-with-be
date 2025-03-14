@@ -96,7 +96,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
       <>
         <div>
           <span className='desktop-caption'>
-            Tidak ada produk pada kategorix <strong>{categoryName}</strong>
+            Tidak ada produk pada kategori <strong>{categoryName}</strong>
           </span>
           <span className='mobile-caption'>
             Ada {productCategory.length} produk pada kategori{' '}

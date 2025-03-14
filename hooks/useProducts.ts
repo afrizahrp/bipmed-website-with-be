@@ -13,17 +13,19 @@ export const useProducts = ({ search }: UseProductsProps) => {
   const { data, isLoading, error, ...rest } = useQuery<Products[], Error>({
     queryKey: ['products', debouncedSearch],
     queryFn: async () => {
-      try {
-        return await getProductsByName({
-          search: debouncedSearch,
-        });
-      } catch (err) {
-        throw err;
+      const products = await getProductsByName({
+        search: debouncedSearch,
+      });
+      if (products.length === 0) {
+        throw new Error(
+          `Produk dengan nama "${debouncedSearch}" tidak ditemukan`
+        );
       }
+      return products;
     },
     retry: 3,
-    staleTime: 60 * 60 * 1000, // 1 Jam
-    enabled: debouncedSearch !== '',
+    staleTime: 60 * 60 * 1000, // 1 hour
+    enabled: debouncedSearch !== '', // Only run the query if debouncedSearch is not empty
   });
 
   return { data, isLoading, error, ...rest };
