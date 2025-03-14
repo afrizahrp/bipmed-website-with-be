@@ -19,7 +19,7 @@ const getCategory = async (query: Query): Promise<Categories> => {
     });
   }
 
-  console.log('Fetching category with URL:', url);
+  // console.log('Fetching category with URL:', url);
 
   try {
     const res = await fetch(url);
