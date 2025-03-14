@@ -20,7 +20,6 @@ const getProduct = async (query: Query): Promise<Products> => {
 
   try {
     const res = await fetch(url);
-    console.log('response', res);
 
     if (!res.ok) {
       console.error(`Error fetching product: ${res.statusText}`);
