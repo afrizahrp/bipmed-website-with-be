@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import getProduct from '@/actions/get-product';
 import getCategory from '@/actions/get-category';
 import getCategories from '@/actions/get-categories';
@@ -7,7 +6,6 @@ import Gallery from '@/components/gallery';
 import Info from './_components/info';
 import PageHeader from '@/components/ui/page-header';
 import { routes } from '@/config/routes';
-import { Products } from '@/types';
 
 export const revalidate = 0;
 
