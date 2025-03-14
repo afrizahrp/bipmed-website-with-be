@@ -1,21 +1,6 @@
-export interface Products {
-  id: string;
-  catalog_id: string;
-  name: string;
-  images: ProductImages[];
-  descriptions: ProductDescs[];
-  category_id: string;
-  category: Categories[];
-  ecatalog_URL: string;
-  tkdn_pctg: number;
-  bmp_pctg: number;
-  iShowedStatus: boolean;
-  slug: string;
-  updatedAt: Date;
-}
-
-export interface ProductsResponse {
-  products: Products[];
+export interface ProductDesc {
+  descriptions: string;
+  benefits: string;
 }
 
 export interface ProductImages {
@@ -23,10 +8,10 @@ export interface ProductImages {
   isPrimary: boolean;
   imageURL: string;
 }
+
 export interface Categories {
   id: string;
   name: string;
-  // images: CategoryImages[];
   imageURL: string;
   iShowedStatus: boolean;
   href: string;
@@ -34,16 +19,22 @@ export interface Categories {
   updatedAt: Date;
 }
 
-export interface CategoryImages {
+export interface Products {
   id: string;
+  register_id: string;
+  catalog_id: string;
+  eCatalogURL: string;
   name: string;
-  imageURL: string;
+  slug?: string;
+  category_id: string;
+  category: Categories;
+  images: ProductImages[];
+  descriptions: ProductDesc; // Update this line to reflect the correct type
+  primaryImageURL: string;
 }
 
-export interface ProductDescs {
-  id: string;
-  descriptions: string;
-  benefit: string;
+export interface ProductsResponse {
+  products: Products[];
 }
 
 export interface PriceList {
